@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Gateway
+      - "9090:9090"  # Metrics
+    volumes:
+      - ./config/gateway.json:/root/config/gateway.json
+    environment:
+      - GOMAXPROCS=4
+      - GOGC=100
+    restart: unless-stopped
+
+  control-plane:
+    build:
+      context: ./control-plane
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config:/app/config
+      - ../config:/app/../config
+    environment:
+      - CONFIG_FILE=/app/../config/gateway.json
+    depends_on:
+      - gateway
+    restart: unless-stopped
+
+  # Mock backends for testing
+  backend1:
+    image: nginx:alpine
+    ports:
+      - "3001:80"
+    volumes:
+      - ./test/backend1:/usr/share/nginx/html
+    restart: unless-stopped
+
+  backend2:
+    image: nginx:alpine
+    ports:
+      - "3002:80"
+    volumes:
+      - ./test/backend2:/usr/share/nginx/html
+    restart: unless-stopped

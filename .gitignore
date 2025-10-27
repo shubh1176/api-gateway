@@ -1,0 +1,68 @@
+# Binaries
+gateway/gateway
+bench/load_test
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go specific
+*.test
+*.out
+go.work
+go.work.sum
+
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+.cursor/
+
+# Test files
+test/
+*.tmp
+*.log
+
+# Config (contains sensitive data)
+config/
+
+# Docker
+docker-compose.override.yml
+
+# Dependencies
+vendor/
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# OS files
+Thumbs.db
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Backup files
+*.bak
+*.backup
